@@ -2227,29 +2227,29 @@ function App() {
             {/* Brand */}
             <div className="text-center md:text-left mb-6 md:mb-0">
               <h3 className="text-xl font-bold tracking-wider mb-2">{t('footer.title')}</h3>
-              <p className="text-white/60 text-sm font-light max-w-md mb-4">
+              <p className="text-white/60 text-sm font-light max-w-md">
                 {t('footer.description')}
               </p>
-              
-              {/* Social Media Icons */}
-              <div className="flex justify-center md:justify-start space-x-4">
-                <a
-                  href="https://instagram.com/astrofacemix"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group"
-                >
-                  <FaInstagram className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
-                </a>
-                <a
-                  href="https://wa.me/905392260505"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group"
-                >
-                  <FaWhatsapp className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
-                </a>
-              </div>
+            </div>
+            
+            {/* Social Media Icons - Right Side */}
+            <div className="flex space-x-4">
+              <a
+                href="https://instagram.com/astrofacemix"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group"
+              >
+                <FaInstagram className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+              </a>
+              <a
+                href="https://wa.me/905392260505"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group"
+              >
+                <FaWhatsapp className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+              </a>
             </div>
           </div>
           
@@ -2260,7 +2260,7 @@ function App() {
             </p>
             
             {/* Privacy Links */}
-            <div className="flex flex-wrap justify-center md:justify-end gap-4 text-xs">
+            <div className="flex justify-center md:justify-end gap-6 text-xs">
               <button
                 onClick={() => setShowCookieSettings(true)}
                 className="text-white/50 hover:text-white transition-colors underline"
@@ -2272,18 +2272,6 @@ function App() {
                 className="text-white/50 hover:text-white transition-colors underline"
               >
                 Hizmet Şartları
-              </button>
-              <button
-                onClick={() => setShowCookieSettings(true)}
-                className="text-white/50 hover:text-white transition-colors underline"
-              >
-                Çerez Ayarları
-              </button>
-              <button
-                onClick={() => setShowCookieSettings(true)}
-                className="text-white/50 hover:text-white transition-colors underline"
-              >
-                KVKK
               </button>
             </div>
           </div>

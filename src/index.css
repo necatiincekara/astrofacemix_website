@@ -2,7 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Cache buster - Updated scroll styles */
+/* Cache buster - Updated scroll styles - Force override v2 */
+
+/* ULTRA FORCE SCROLL BAR OVERRIDE - NO BLUE ALLOWED */
+html {
+  scrollbar-width: thin !important;
+  scrollbar-color: #4a5568 #000000 !important;
+}
+
+body {
+  scrollbar-width: thin !important;
+  scrollbar-color: #4a5568 #000000 !important;
+}
+
+/* Force all webkit browsers */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+  background: #000000 !important;
+  background-color: #000000 !important;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  background: #4a5568 !important;
+  background-color: #4a5568 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:hover {
+  background: #718096 !important;
+  background-color: #718096 !important;
+}
+
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner {
+  background: #000000 !important;
+  background-color: #000000 !important;
+}
 
 :root {
   --accent: #00ff88;
