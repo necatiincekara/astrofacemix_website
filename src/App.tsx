@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaBrain, FaRocket, FaLock, FaChartBar, FaStar, FaUsers, FaArrowRight, FaPlay, FaQuoteLeft, FaGlobe, FaDesktop, FaCamera, FaLightbulb, FaBolt, FaShieldAlt, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaBrain, FaRocket, FaLock, FaChartBar, FaStar, FaUsers, FaArrowRight, FaPlay, FaQuoteLeft, FaGlobe, FaDesktop, FaCamera, FaLightbulb, FaBolt, FaShieldAlt, FaInstagram, FaLinkedin, FaTwitter, FaBars, FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import i18n from 'i18next';
@@ -775,6 +775,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [particles, setParticles] = useState<FloatingParticle[]>([]);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const currentLanguage = i18n.language;
   
@@ -902,18 +903,19 @@ function App() {
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-white/10"
+        className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm border-b border-white/10"
       >
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-                  <motion.div
-              className="text-xl font-bold tracking-wider"
+            <motion.div
+              className="text-lg sm:text-xl font-bold tracking-wider"
               whileHover={{ scale: 1.05 }}
             >
               {t('loading.title')}
-                  </motion.div>
+            </motion.div>
             
-            <div className="hidden md:flex items-center space-x-8">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
               {[
                 { key: 'about', href: '#about' },
                 { key: 'modules', href: '#modules' },
@@ -921,59 +923,105 @@ function App() {
                 { key: 'usageAreas', href: '#usage-areas' },
                 { key: 'contact', href: '#contact' }
               ].map((item) => (
-                      <motion.a
+                <motion.a
                   key={item.key}
-                        href={item.href}
+                  href={item.href}
                   className="text-sm font-medium tracking-wide hover:text-white/70 transition-colors"
                   whileHover={{ y: -2 }}
                   onClick={(e) => {
                     e.preventDefault();
                     document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                      >
+                >
                   {t(`nav.${item.key}`)}
-                      </motion.a>
+                </motion.a>
+              ))}
+            </div>
+            
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              {/* Language Switcher */}
+              <motion.button
+                onClick={toggleLanguage}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center px-2 sm:px-3 py-1 sm:py-2 border border-white/30 text-white hover:border-white transition-all duration-300 text-xs sm:text-sm font-medium tracking-wide"
+              >
+                <FaGlobe className="mr-1 sm:mr-2 w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">{currentLanguage.toUpperCase()}</span>
+              </motion.button>
+
+              {/* Mobile Menu Button */}
+              <motion.button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="md:hidden p-2 text-white"
+              >
+                {mobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+              </motion.button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation Menu */}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="md:hidden border-t border-white/10 mt-3 pt-3"
+              >
+                <div className="flex flex-col space-y-3">
+                  {[
+                    { key: 'about', href: '#about' },
+                    { key: 'modules', href: '#modules' },
+                    { key: 'technology', href: '#kiosk' },
+                    { key: 'usageAreas', href: '#usage-areas' },
+                    { key: 'contact', href: '#contact' }
+                  ].map((item) => (
+                    <motion.a
+                      key={item.key}
+                      href={item.href}
+                      className="text-sm font-medium tracking-wide hover:text-white/70 transition-colors py-2 border-b border-white/5 last:border-b-0"
+                      whileTap={{ scale: 0.98 }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' });
+                        setMobileMenuOpen(false);
+                      }}
+                    >
+                      {t(`nav.${item.key}`)}
+                    </motion.a>
                   ))}
                 </div>
-            
-                      <div className="flex items-center space-x-4">
-              {/* Language Switcher */}
-                      <motion.button
-                onClick={toggleLanguage}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                className="flex items-center px-3 py-2 border border-white/30 text-white hover:border-white transition-all duration-300 text-sm font-medium tracking-wide"
-                      >
-                <FaGlobe className="mr-2" />
-                {currentLanguage.toUpperCase()}
-                      </motion.button>
-                    </div>
-          </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </motion.nav>
 
       {/* Hero Section - Ultimate Minimalism */}
-      <section className="min-h-screen flex items-center justify-center relative pt-20">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-                  <motion.div
+      <section className="min-h-screen flex items-center justify-center relative pt-16 sm:pt-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+          <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="mb-8"
+            className="mb-6 sm:mb-8"
           >
             <motion.h1
-              className="text-6xl md:text-8xl font-extralight mb-6 tracking-wider leading-none"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-extralight mb-4 sm:mb-6 tracking-wider leading-tight sm:leading-none"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2, delay: 0.2 }}
             >
               {t('hero.title')}
               <br />
-              <span className="text-2xl md:text-3xl font-light">{t('hero.subtitle')}</span>
+              <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light">{t('hero.subtitle')}</span>
             </motion.h1>
             
             <motion.p
-              className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto mb-12 font-light leading-relaxed"
+              className="text-base sm:text-lg md:text-xl text-white/70 max-w-3xl mx-auto mb-8 sm:mb-12 font-light leading-relaxed px-2"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4 }}
@@ -983,15 +1031,15 @@ function App() {
           </motion.div>
 
           <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-12 sm:mb-16 px-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6 }}
           >
-                      <motion.button
+            <motion.button
               whileHover={{ scale: 1.05, backgroundColor: "#ffffff", color: "#000000" }}
-                        whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-black border-2 border-white text-white font-medium tracking-wider transition-all duration-300 group"
+              whileTap={{ scale: 0.95 }}
+              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-black border-2 border-white text-white font-medium tracking-wider transition-all duration-300 group"
               onClick={() => {
                 // Smooth scroll to contact section or show contact modal
                 const contactSection = document.getElementById('contact');
@@ -1002,32 +1050,32 @@ function App() {
                 }
               }}
             >
-              <span className="flex items-center">
-                {t('hero.requestConsultation')}
-                <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+              <span className="flex items-center justify-center">
+                <span className="text-sm sm:text-base">{t('hero.requestConsultation')}</span>
+                <FaArrowRight className="ml-2 w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
               </span>
-                      </motion.button>
+            </motion.button>
             
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 text-white border border-white/30 hover:border-white transition-all duration-300 group"
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-white border border-white/30 hover:border-white transition-all duration-300 group"
               onClick={() => {
                 // Send demo request via WhatsApp
                 const demoMessage = encodeURIComponent('Merhaba! AstroFaceMix platformu için demo talep etmek istiyorum. Detaylı bilgi alabilir miyim?');
                 window.open(`https://wa.me/905392260505?text=${demoMessage}`, '_blank');
               }}
             >
-              <span className="flex items-center">
-                <FaPlay className="mr-2 group-hover:scale-110 transition-transform" />
-                {t('hero.platformDemo')}
+              <span className="flex items-center justify-center">
+                <FaPlay className="mr-2 w-3 h-3 sm:w-4 sm:h-4 group-hover:scale-110 transition-transform" />
+                <span className="text-sm sm:text-base">{t('hero.platformDemo')}</span>
               </span>
-                      </motion.button>
+            </motion.button>
                   </motion.div>
 
           {/* Minimal Stats */}
           <motion.div
-            className="grid grid-cols-3 gap-8 max-w-2xl mx-auto"
+            className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-2xl mx-auto px-4"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8 }}
@@ -1042,216 +1090,216 @@ function App() {
                 className="text-center"
                 whileHover={{ scale: 1.05 }}
               >
-                <div className="text-2xl md:text-3xl font-light mb-2">{stat.value}</div>
-                <div className="text-sm text-white/60 tracking-wide">{t(`hero.stats.${stat.key}`)}</div>
-                </motion.div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-light mb-1 sm:mb-2">{stat.value}</div>
+                <div className="text-xs sm:text-sm text-white/60 tracking-wide">{t(`hero.stats.${stat.key}`)}</div>
+              </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
       {/* About Section - Who We Are */}
-      <section className="py-24 bg-white text-black relative" id="about">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-                    <motion.div
+      <section className="py-16 sm:py-20 lg:py-24 bg-white text-black relative" id="about">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl md:text-5xl font-extralight mb-8 tracking-wider text-black">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extralight mb-6 sm:mb-8 tracking-wider text-black">
               {t('about.title')}
             </h2>
-            <p className="text-lg md:text-xl text-black/80 leading-relaxed font-light max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-black/80 leading-relaxed font-light max-w-3xl mx-auto px-2">
               {t('about.description')}
             </p>
-                    </motion.div>
-                </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Modules Section */}
-      <section className="py-24 relative" id="modules">
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="py-16 sm:py-20 lg:py-24 relative" id="modules">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl md:text-5xl font-extralight mb-6 tracking-wider">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extralight mb-4 sm:mb-6 tracking-wider">
               {t('modules.title')}
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
             {/* AstroMix Module */}
             <motion.div
-              className="text-center p-8 border border-white/10 hover:border-white/30 transition-all duration-500 group"
+              className="text-center p-6 sm:p-8 border border-white/10 hover:border-white/30 transition-all duration-500 group"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
               whileHover={{ y: -10, scale: 1.02 }}
             >
               <motion.div
-                className="mb-6"
+                className="mb-4 sm:mb-6"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <FaStar className="w-12 h-12 mx-auto text-white group-hover:text-white/80 transition-colors" />
+                <FaStar className="w-10 h-10 sm:w-12 sm:h-12 mx-auto text-white group-hover:text-white/80 transition-colors" />
               </motion.div>
-              <h3 className="text-2xl font-medium mb-4 tracking-wider">{t('modules.astromix.title')}</h3>
-              <p className="text-white/80 leading-relaxed font-light">{t('modules.astromix.description')}</p>
+              <h3 className="text-xl sm:text-2xl font-medium mb-3 sm:mb-4 tracking-wider">{t('modules.astromix.title')}</h3>
+              <p className="text-sm sm:text-base text-white/80 leading-relaxed font-light">{t('modules.astromix.description')}</p>
             </motion.div>
 
             {/* FaceMix Module */}
             <motion.div
-              className="text-center p-8 border border-white/10 hover:border-white/30 transition-all duration-500 group"
+              className="text-center p-6 sm:p-8 border border-white/10 hover:border-white/30 transition-all duration-500 group"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               whileHover={{ y: -10, scale: 1.02 }}
             >
               <motion.div
-                className="mb-6"
+                className="mb-4 sm:mb-6"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <FaUsers className="w-12 h-12 mx-auto text-white group-hover:text-white/80 transition-colors" />
+                <FaUsers className="w-10 h-10 sm:w-12 sm:h-12 mx-auto text-white group-hover:text-white/80 transition-colors" />
               </motion.div>
-              <h3 className="text-2xl font-medium mb-4 tracking-wider">{t('modules.facemix.title')}</h3>
-              <p className="text-white/80 leading-relaxed font-light">{t('modules.facemix.description')}</p>
+              <h3 className="text-xl sm:text-2xl font-medium mb-3 sm:mb-4 tracking-wider">{t('modules.facemix.title')}</h3>
+              <p className="text-sm sm:text-base text-white/80 leading-relaxed font-light">{t('modules.facemix.description')}</p>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Corporate Modules Section */}
-      <section className="py-24 bg-white text-black relative">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-16 sm:py-20 lg:py-24 bg-white text-black relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl md:text-5xl font-extralight mb-6 tracking-wider text-black">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extralight mb-4 sm:mb-6 tracking-wider text-black">
               {t('corporateModules.title')}
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {/* DNA Test */}
             <motion.div
-              className="text-center p-6 border border-black/10 hover:border-black/30 transition-all duration-500 group"
+              className="text-center p-4 sm:p-6 border border-black/10 hover:border-black/30 transition-all duration-500 group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
               whileHover={{ y: -5, scale: 1.02 }}
             >
               <motion.div
-                className="mb-6"
+                className="mb-4 sm:mb-6"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <FaBrain className="w-10 h-10 mx-auto text-black group-hover:text-black/70 transition-colors" />
+                <FaBrain className="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-black group-hover:text-black/70 transition-colors" />
               </motion.div>
-              <h3 className="text-xl font-medium mb-4 tracking-wider">{t('corporateModules.dnatest.title')}</h3>
-              <p className="text-black/80 text-sm leading-relaxed font-light">{t('corporateModules.dnatest.description')}</p>
+              <h3 className="text-lg sm:text-xl font-medium mb-3 sm:mb-4 tracking-wider">{t('corporateModules.dnatest.title')}</h3>
+              <p className="text-black/80 text-xs sm:text-sm leading-relaxed font-light">{t('corporateModules.dnatest.description')}</p>
             </motion.div>
 
             {/* WorkLife */}
             <motion.div
-              className="text-center p-6 border border-black/10 hover:border-black/30 transition-all duration-500 group"
+              className="text-center p-4 sm:p-6 border border-black/10 hover:border-black/30 transition-all duration-500 group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               whileHover={{ y: -5, scale: 1.02 }}
             >
               <motion.div
-                className="mb-6"
+                className="mb-4 sm:mb-6"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <FaRocket className="w-10 h-10 mx-auto text-black group-hover:text-black/70 transition-colors" />
+                <FaRocket className="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-black group-hover:text-black/70 transition-colors" />
               </motion.div>
-              <h3 className="text-xl font-medium mb-4 tracking-wider">{t('corporateModules.worklife.title')}</h3>
-              <p className="text-black/80 text-sm leading-relaxed font-light">{t('corporateModules.worklife.description')}</p>
+              <h3 className="text-lg sm:text-xl font-medium mb-3 sm:mb-4 tracking-wider">{t('corporateModules.worklife.title')}</h3>
+              <p className="text-black/80 text-xs sm:text-sm leading-relaxed font-light">{t('corporateModules.worklife.description')}</p>
             </motion.div>
 
             {/* WorkStill */}
             <motion.div
-              className="text-center p-6 border border-black/10 hover:border-black/30 transition-all duration-500 group"
+              className="text-center p-4 sm:p-6 border border-black/10 hover:border-black/30 transition-all duration-500 group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               whileHover={{ y: -5, scale: 1.02 }}
             >
               <motion.div
-                className="mb-6"
+                className="mb-4 sm:mb-6"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <FaLock className="w-10 h-10 mx-auto text-black group-hover:text-black/70 transition-colors" />
+                <FaLock className="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-black group-hover:text-black/70 transition-colors" />
               </motion.div>
-              <h3 className="text-xl font-medium mb-4 tracking-wider">{t('corporateModules.workstill.title')}</h3>
-              <p className="text-black/80 text-sm leading-relaxed font-light">{t('corporateModules.workstill.description')}</p>
+              <h3 className="text-lg sm:text-xl font-medium mb-3 sm:mb-4 tracking-wider">{t('corporateModules.workstill.title')}</h3>
+              <p className="text-black/80 text-xs sm:text-sm leading-relaxed font-light">{t('corporateModules.workstill.description')}</p>
             </motion.div>
 
             {/* Company Stars */}
             <motion.div
-              className="text-center p-6 border border-black/10 hover:border-black/30 transition-all duration-500 group"
+              className="text-center p-4 sm:p-6 border border-black/10 hover:border-black/30 transition-all duration-500 group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               whileHover={{ y: -5, scale: 1.02 }}
             >
               <motion.div
-                className="mb-6"
+                className="mb-4 sm:mb-6"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <FaChartBar className="w-10 h-10 mx-auto text-black group-hover:text-black/70 transition-colors" />
+                <FaChartBar className="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-black group-hover:text-black/70 transition-colors" />
               </motion.div>
-              <h3 className="text-xl font-medium mb-4 tracking-wider">{t('corporateModules.companystars.title')}</h3>
-              <p className="text-black/80 text-sm leading-relaxed font-light">{t('corporateModules.companystars.description')}</p>
+              <h3 className="text-lg sm:text-xl font-medium mb-3 sm:mb-4 tracking-wider">{t('corporateModules.companystars.title')}</h3>
+              <p className="text-black/80 text-xs sm:text-sm leading-relaxed font-light">{t('corporateModules.companystars.description')}</p>
             </motion.div>
 
             {/* AstroWork */}
             <motion.div
-              className="text-center p-6 border border-black/10 hover:border-black/30 transition-all duration-500 group md:col-span-2 lg:col-span-1"
+              className="text-center p-4 sm:p-6 border border-black/10 hover:border-black/30 transition-all duration-500 group md:col-span-2 lg:col-span-1"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
               whileHover={{ y: -5, scale: 1.02 }}
             >
               <motion.div
-                className="mb-6"
+                className="mb-4 sm:mb-6"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <FaStar className="w-10 h-10 mx-auto text-black group-hover:text-black/70 transition-colors" />
+                <FaStar className="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-black group-hover:text-black/70 transition-colors" />
               </motion.div>
-              <h3 className="text-xl font-medium mb-4 tracking-wider">{t('corporateModules.astrowork.title')}</h3>
-              <p className="text-black/80 text-sm leading-relaxed font-light">{t('corporateModules.astrowork.description')}</p>
+              <h3 className="text-lg sm:text-xl font-medium mb-3 sm:mb-4 tracking-wider">{t('corporateModules.astrowork.title')}</h3>
+              <p className="text-black/80 text-xs sm:text-sm leading-relaxed font-light">{t('corporateModules.astrowork.description')}</p>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="py-24 relative">
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="py-16 sm:py-20 lg:py-24 relative">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl md:text-5xl font-extralight mb-6 tracking-wider">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extralight mb-4 sm:mb-6 tracking-wider">
               {t('howItWorks.title')}
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-5 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
             {(t('howItWorks.steps', { returnObjects: true }) as Array<{
               number: string;
               title: string;
@@ -1266,16 +1314,16 @@ function App() {
               >
                 {/* Step Number */}
                 <motion.div
-                  className="w-16 h-16 mx-auto mb-6 border-2 border-white/30 rounded-full flex items-center justify-center text-xl font-light tracking-wider"
+                  className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 mx-auto mb-4 sm:mb-6 border-2 border-white/30 rounded-full flex items-center justify-center text-lg sm:text-xl font-light tracking-wider"
                   whileHover={{ scale: 1.1, borderColor: "rgba(255,255,255,0.6)" }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   {step.number}
                 </motion.div>
                 
-                {/* Connecting Line (except for last item) */}
+                {/* Connecting Line (except for last item) - Hidden on mobile and small screens */}
                 {index < 4 && (
-                  <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-white/20 -z-10">
+                  <div className="hidden lg:block absolute top-6 lg:top-8 left-1/2 w-full h-0.5 bg-white/20 -z-10">
                     <motion.div
                       className="h-full bg-white/40"
                       initial={{ width: "0%" }}
@@ -1286,8 +1334,8 @@ function App() {
                 )}
                 
                 {/* Step Content */}
-                <h3 className="text-lg font-medium mb-3 tracking-wide">{step.title}</h3>
-                <p className="text-white/80 text-sm leading-relaxed font-light">{step.description}</p>
+                <h3 className="text-base sm:text-lg font-medium mb-2 sm:mb-3 tracking-wide">{step.title}</h3>
+                <p className="text-white/80 text-xs sm:text-sm leading-relaxed font-light">{step.description}</p>
               </motion.div>
             ))}
           </div>
