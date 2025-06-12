@@ -372,6 +372,16 @@ const resources = {
         },
         copyright: "© 2024 AstroFaceMix. All rights reserved. AI-Powered Experience Design.",
         links: ["Privacy Policy", "Terms of Service", "Cookie Policy"]
+      },
+      
+      // Custom Solution Buttons
+      buttons: {
+        customSolution: "Get Custom Solution for Your Brand",
+        sectorSolution: "Discover Solutions for Your Sector",
+        customSolutionPlaceholder: "Custom solution request for your brand: What sector do you operate in? What kind of experience do you want to create?",
+        sectorSolutionPlaceholder: "Custom solution request for your sector: Which sector (festival, hotel, store, corporate, etc.) do you operate in? What kind of experience are you targeting?",
+        customSolutionWhatsApp: "Hello! I would like to request a custom solution for our brand. Can I get detailed information about personalized experience design suitable for our sector?",
+        sectorSolutionWhatsApp: "Hello! I would like to request a custom solution for our sector. What usage areas do you serve and what kind of experience can we design?"
       }
     }
   },
@@ -739,6 +749,16 @@ const resources = {
         },
         copyright: "© 2024 AstroFaceMix. Tüm hakları saklıdır. Yapay Zeka Destekli Deneyim Tasarımı.",
         links: ["Gizlilik Politikası", "Hizmet Şartları", "Çerez Politikası"]
+      },
+      
+      // Custom Solution Buttons
+      buttons: {
+        customSolution: "Markanız İçin Özel Çözüm Alın",
+        sectorSolution: "Sektörünüz İçin Çözüm Keşfedin",
+        customSolutionPlaceholder: "Markanız için özel çözüm talebi: Hangi sektörde faaliyet gösteriyorsunuz? Hangi tür deneyim yaratmak istiyorsunuz?",
+        sectorSolutionPlaceholder: "Sektörünüz için özel çözüm talebi: Hangi sektörde (festival, otel, mağaza, kurumsal vb.) faaliyet gösteriyorsunuz? Nasıl bir deneyim hedefliyorsunuz?",
+        customSolutionWhatsApp: "Merhaba! Markanız için özel çözüm talep etmek istiyorum. Sektörümüze uygun kişiselleştirilmiş deneyim tasarımı hakkında detaylı bilgi alabilir miyim?",
+        sectorSolutionWhatsApp: "Merhaba! Sektörümüz için özel çözüm talep etmek istiyorum. Hangi kullanım alanlarında hizmet veriyorsunuz ve nasıl bir deneyim tasarlayabiliriz?"
       }
     }
   }
@@ -1685,18 +1705,18 @@ function App() {
                     const messageField = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
                     if (messageField) {
                       messageField.focus();
-                      messageField.placeholder = "Markanız için özel çözüm talebi: Hangi sektörde faaliyet gösteriyorsunuz? Hangi tür deneyim yaratmak istiyorsunuz?";
+                      messageField.placeholder = t('buttons.customSolutionPlaceholder');
                     }
                   }, 1000);
                 } else {
                   // Fallback: Direct WhatsApp contact for custom solutions
-                  const customSolutionMessage = encodeURIComponent('Merhaba! Markanız için özel çözüm talep etmek istiyorum. Sektörümüze uygun kişiselleştirilmiş deneyim tasarımı hakkında detaylı bilgi alabilir miyim?');
+                  const customSolutionMessage = encodeURIComponent(t('buttons.customSolutionWhatsApp'));
                   window.open(`https://wa.me/905392260505?text=${customSolutionMessage}`, '_blank');
                 }
               }}
             >
               <span className="flex items-center">
-                Markanız İçin Özel Çözüm Alın
+                {t('buttons.customSolution')}
                 <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
               </span>
             </motion.button>
@@ -1853,18 +1873,18 @@ function App() {
                     const messageField = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
                     if (messageField) {
                       messageField.focus();
-                      messageField.placeholder = "Sektörünüz için özel çözüm talebi: Hangi sektörde (festival, otel, mağaza, kurumsal vb.) faaliyet gösteriyorsunuz? Nasıl bir deneyim hedefliyorsunuz?";
+                      messageField.placeholder = t('buttons.sectorSolutionPlaceholder');
                     }
                   }, 1000);
                 } else {
                   // Fallback: Direct WhatsApp contact for sector solutions
-                  const sectorSolutionMessage = encodeURIComponent('Merhaba! Sektörümüz için özel çözüm talep etmek istiyorum. Hangi kullanım alanlarında hizmet veriyorsunuz ve nasıl bir deneyim tasarlayabiliriz?');
+                  const sectorSolutionMessage = encodeURIComponent(t('buttons.sectorSolutionWhatsApp'));
                   window.open(`https://wa.me/905392260505?text=${sectorSolutionMessage}`, '_blank');
                 }
               }}
             >
               <span className="flex items-center">
-                Sektörünüz İçin Çözüm Keşfedin
+                {t('buttons.sectorSolution')}
                 <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
               </span>
             </motion.button>
