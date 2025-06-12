@@ -1643,11 +1643,27 @@ function App() {
               whileTap={{ scale: 0.95 }}
               className="px-12 py-4 bg-black border-2 border-white text-white font-medium tracking-wider transition-all duration-300 group"
               onClick={() => {
-                alert('Markanız için özel çözümlerimizi keşfetmek üzere iletişime geçin!');
+                // Scroll to contact section with custom solution focus
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                  // Optional: Focus on the message textarea after scrolling
+                  setTimeout(() => {
+                    const messageField = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
+                    if (messageField) {
+                      messageField.focus();
+                      messageField.placeholder = "Markanız için özel çözüm talebi: Hangi sektörde faaliyet gösteriyorsunuz? Hangi tür deneyim yaratmak istiyorsunuz?";
+                    }
+                  }, 1000);
+                } else {
+                  // Fallback: Direct WhatsApp contact for custom solutions
+                  const customSolutionMessage = encodeURIComponent('Merhaba! Markanız için özel çözüm talep etmek istiyorum. Sektörümüze uygun kişiselleştirilmiş deneyim tasarımı hakkında detaylı bilgi alabilir miyim?');
+                  window.open(`https://wa.me/905392260505?text=${customSolutionMessage}`, '_blank');
+                }
               }}
             >
               <span className="flex items-center">
-                Markanız İçin Özel Çözüm
+                Markanız İçin Özel Çözüm Alın
                 <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
               </span>
             </motion.button>
@@ -1795,7 +1811,23 @@ function App() {
               whileTap={{ scale: 0.95 }}
               className="px-12 py-4 bg-white border-2 border-black text-black font-medium tracking-wider transition-all duration-300 group"
               onClick={() => {
-                alert('Sektörünüz için özel çözümlerimizi keşfetmek üzere iletişime geçin!');
+                // Scroll to contact section with sector-specific focus
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                  // Focus on the message textarea with sector-specific placeholder
+                  setTimeout(() => {
+                    const messageField = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
+                    if (messageField) {
+                      messageField.focus();
+                      messageField.placeholder = "Sektörünüz için özel çözüm talebi: Hangi sektörde (festival, otel, mağaza, kurumsal vb.) faaliyet gösteriyorsunuz? Nasıl bir deneyim hedefliyorsunuz?";
+                    }
+                  }, 1000);
+                } else {
+                  // Fallback: Direct WhatsApp contact for sector solutions
+                  const sectorSolutionMessage = encodeURIComponent('Merhaba! Sektörümüz için özel çözüm talep etmek istiyorum. Hangi kullanım alanlarında hizmet veriyorsunuz ve nasıl bir deneyim tasarlayabiliriz?');
+                  window.open(`https://wa.me/905392260505?text=${sectorSolutionMessage}`, '_blank');
+                }
               }}
             >
               <span className="flex items-center">
@@ -1894,7 +1926,14 @@ function App() {
                 const phone = formData.get('phone');
                 const message = formData.get('message');
                 
-                const mailtoLink = `mailto:info@astrofacemix.com?subject=İletişim Formu - ${name}&body=Ad Soyad: ${name}%0AE-posta: ${email}%0ATelefon: ${phone}%0A%0AMesaj:%0A${message}`;
+                // Check if it's a custom solution request
+                const isCustomSolution = message?.toString().toLowerCase().includes('özel çözüm') || 
+                                        message?.toString().toLowerCase().includes('markanız için') ||
+                                        message?.toString().toLowerCase().includes('sektörünüz için');
+                
+                const subject = isCustomSolution ? `Özel Çözüm Talebi - ${name}` : `İletişim Formu - ${name}`;
+                
+                const mailtoLink = `mailto:info@astrofacemix.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Ad Soyad: ${name}\nE-posta: ${email}\nTelefon: ${phone}\n\nMesaj:\n${message}`)}`;
                 window.location.href = mailtoLink;
               }}>
                 <div>
