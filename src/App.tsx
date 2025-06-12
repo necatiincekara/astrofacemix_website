@@ -382,6 +382,43 @@ const resources = {
         sectorSolutionPlaceholder: "Custom solution request for your sector: Which sector (festival, hotel, store, corporate, etc.) do you operate in? What kind of experience are you targeting?",
         customSolutionWhatsApp: "Hello! I would like to request a custom solution for our brand. Can I get detailed information about personalized experience design suitable for our sector?",
         sectorSolutionWhatsApp: "Hello! I would like to request a custom solution for our sector. What usage areas do you serve and what kind of experience can we design?"
+      },
+      
+      // Cookie Consent
+      cookie: {
+        message: "We use cookies to enhance your experience, analyze site traffic, and for marketing purposes. Your privacy is important to us.",
+        accept: "Accept All",
+        reject: "Reject All",
+        learnMore: "Learn More",
+        settings: {
+          title: "Cookie Settings",
+          privacy: {
+            title: "Privacy Policy",
+            description: "We respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, and share your information when you use our website."
+          },
+          kvkk: {
+            title: "GDPR/KVKK Compliance",
+            description: "In accordance with GDPR and KVKK regulations, we process your personal data transparently and securely. You have the right to access, correct, delete, and port your data."
+          },
+          types: {
+            title: "Cookie Types",
+            essential: {
+              title: "Essential Cookies",
+              description: "These cookies are necessary for the website to function and cannot be disabled."
+            },
+            analytics: {
+              title: "Analytics Cookies",
+              description: "These cookies help us understand how visitors interact with our website."
+            },
+            marketing: {
+              title: "Marketing Cookies",
+              description: "These cookies are used to track visitors across websites for marketing purposes."
+            }
+          },
+          required: "Required",
+          save: "Save Preferences",
+          acceptAll: "Accept All"
+        }
       }
     }
   },
@@ -759,6 +796,43 @@ const resources = {
         sectorSolutionPlaceholder: "Sektörünüz için özel çözüm talebi: Hangi sektörde (festival, otel, mağaza, kurumsal vb.) faaliyet gösteriyorsunuz? Nasıl bir deneyim hedefliyorsunuz?",
         customSolutionWhatsApp: "Merhaba! Markanız için özel çözüm talep etmek istiyorum. Sektörümüze uygun kişiselleştirilmiş deneyim tasarımı hakkında detaylı bilgi alabilir miyim?",
         sectorSolutionWhatsApp: "Merhaba! Sektörümüz için özel çözüm talep etmek istiyorum. Hangi kullanım alanlarında hizmet veriyorsunuz ve nasıl bir deneyim tasarlayabiliriz?"
+      },
+      
+      // Cookie Consent
+      cookie: {
+        message: "Web sitemizde deneyiminizi geliştirmek, site trafiğini analiz etmek ve pazarlama amaçları için çerezler kullanıyoruz. Gizliliğiniz bizim için önemlidir.",
+        accept: "Tümünü Kabul Et",
+        reject: "Tümünü Reddet",
+        learnMore: "Daha Fazla Bilgi",
+        settings: {
+          title: "Çerez Ayarları",
+          privacy: {
+            title: "Gizlilik Politikası",
+            description: "Gizliliğinize saygı duyuyor ve kişisel verilerinizi korumaya kararlıyız. Bu gizlilik politikası, web sitemizi kullandığınızda bilgilerinizi nasıl topladığımızı, kullandığımızı ve paylaştığımızı açıklar."
+          },
+          kvkk: {
+            title: "GDPR/KVKK Uyumluluğu",
+            description: "GDPR ve KVKK yönetmeliklerine uygun olarak kişisel verilerinizi şeffaf ve güvenli bir şekilde işliyoruz. Verilerinize erişme, düzeltme, silme ve taşıma hakkına sahipsiniz."
+          },
+          types: {
+            title: "Çerez Türleri",
+            essential: {
+              title: "Zorunlu Çerezler",
+              description: "Bu çerezler web sitesinin çalışması için gereklidir ve devre dışı bırakılamaz."
+            },
+            analytics: {
+              title: "Analitik Çerezler",
+              description: "Bu çerezler ziyaretçilerin web sitemizle nasıl etkileşim kurduğunu anlamamıza yardımcı olur."
+            },
+            marketing: {
+              title: "Pazarlama Çerezleri",
+              description: "Bu çerezler pazarlama amaçları için ziyaretçileri web siteleri arasında takip etmek için kullanılır."
+            }
+          },
+          required: "Gerekli",
+          save: "Tercihleri Kaydet",
+          acceptAll: "Tümünü Kabul Et"
+        }
       }
     }
   }
@@ -795,6 +869,15 @@ function App() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
+  // Cookie management states
+  const [showCookieBanner, setShowCookieBanner] = useState(false);
+  const [showCookieSettings, setShowCookieSettings] = useState(false);
+  const [cookiePreferences, setCookiePreferences] = useState({
+    essential: true,
+    analytics: false,
+    marketing: false
+  });
+  
   const currentLanguage = i18n.language;
   
   // Language switcher function
@@ -802,6 +885,43 @@ function App() {
     const newLang = currentLanguage === 'en' ? 'tr' : 'en';
     i18n.changeLanguage(newLang);
   };
+
+  // Cookie management functions
+  const handleCookieChoice = (accepted: boolean) => {
+    if (accepted) {
+      setCookiePreferences({ essential: true, analytics: true, marketing: true });
+    } else {
+      setCookiePreferences({ essential: true, analytics: false, marketing: false });
+    }
+    localStorage.setItem('cookieConsent', JSON.stringify({
+      accepted,
+      preferences: accepted ? { essential: true, analytics: true, marketing: true } : { essential: true, analytics: false, marketing: false },
+      timestamp: new Date().toISOString()
+    }));
+    setShowCookieBanner(false);
+  };
+
+  const saveCookiePreferences = () => {
+    localStorage.setItem('cookieConsent', JSON.stringify({
+      accepted: true,
+      preferences: cookiePreferences,
+      timestamp: new Date().toISOString()
+    }));
+    setShowCookieSettings(false);
+    setShowCookieBanner(false);
+  };
+
+  // Check for existing cookie consent on mount
+  useEffect(() => {
+    const savedConsent = localStorage.getItem('cookieConsent');
+    if (!savedConsent) {
+      // Show banner after 2 seconds if no consent found
+      setTimeout(() => setShowCookieBanner(true), 2000);
+    } else {
+      const consent = JSON.parse(savedConsent);
+      setCookiePreferences(consent.preferences);
+    }
+  }, []);
 
   // Ultra-Pure Loading Screen
   useEffect(() => {
@@ -2099,49 +2219,291 @@ function App() {
         </div>
       </section>
 
-      {/* Footer - Ultra Minimal */}
-      <footer className="py-12 border-t border-white/10">
+      {/* Footer */}
+      <footer className="bg-black text-white py-16 relative">
         <div className="max-w-6xl mx-auto px-6">
-          {/* Main Footer Content */}
-          <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-            {/* Brand */}
-            <div className="text-center md:text-left mb-6 md:mb-0">
-              <h3 className="text-xl font-bold tracking-wider mb-2">{t('footer.title')}</h3>
-              <p className="text-white/60 text-sm font-light max-w-md">
-                {t('footer.description')}
-              </p>
+          <div className="grid md:grid-cols-4 gap-8 mb-12">
+            {/* Company Info */}
+            <div className="md:col-span-2">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <h3 className="text-2xl font-bold mb-4 tracking-wider">{t('footer.title')}</h3>
+                <p className="text-white/70 mb-6 leading-relaxed">
+                  {t('footer.description')}
+                </p>
+                
+                {/* Social Links */}
+                <div className="flex space-x-4">
+                  {[FaLinkedin, FaTwitter, FaInstagram].map((Icon, index) => (
+                    <motion.a
+                      key={index}
+                      href="#"
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+                    >
+                      <Icon className="w-5 h-5" />
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <h4 className="text-lg font-medium mb-4">{t('footer.modules.title')}</h4>
+                <ul className="space-y-2">
+                  {(t('footer.modules.items', { returnObjects: true }) as string[]).map((item, index) => (
+                    <li key={index}>
+                      <a href="#" className="text-white/70 hover:text-white transition-colors">
+                        {item}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+
+            {/* Services */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <h4 className="text-lg font-medium mb-4">{t('footer.contact.title')}</h4>
+                <div className="space-y-3">
+                  <p className="text-white/70">
+                    <span className="font-medium">{t('footer.contact.phone')}:</span><br />
+                    {t('footer.contact.phone')}
+                  </p>
+                  <p className="text-white/70">
+                    <span className="font-medium">{t('footer.contact.email')}:</span><br />
+                    {t('footer.contact.email')}
+                  </p>
+                </div>
+              </motion.div>
             </div>
           </div>
-          
+
           {/* Bottom Bar */}
-          <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-white/50 text-xs font-light mb-4 md:mb-0">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center"
+          >
+            <p className="text-white/60 text-sm mb-4 md:mb-0">
               {t('footer.copyright')}
             </p>
             
-            {/* Social Icons */}
-            <div className="flex space-x-4">
-              {[FaLinkedin, FaTwitter, FaInstagram].map((Icon, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.1 }}
-                  className="w-8 h-8 border border-white/20 flex items-center justify-center hover:border-white/40 transition-colors cursor-pointer"
-                  onClick={() => {
-                    const socialLinks = [
-                      'https://linkedin.com/company/astrofacemix',
-                      'https://twitter.com/astrofacemix', 
-                      'https://instagram.com/astrofacemix'
-                    ];
-                    window.open(socialLinks[index], '_blank');
+            <div className="flex space-x-6 text-sm">
+              {(t('footer.links', { returnObjects: true }) as string[]).map((link, index) => (
+                <a 
+                  key={index} 
+                  href="#" 
+                  className="text-white/60 hover:text-white transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                                         if (index === 0) setShowCookieSettings(true); // Privacy Policy
                   }}
                 >
-                  <Icon className="w-3 h-3" />
-                </motion.div>
+                  {link}
+                </a>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </footer>
+
+      {/* Cookie Consent Banner */}
+      <AnimatePresence>
+        {showCookieBanner && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            className="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-sm border-t border-white/20 p-4 z-50"
+          >
+            <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="text-white/90 text-sm flex-1">
+                <p>
+                  {t('cookie.message')} {' '}
+                  <button 
+                                         onClick={() => setShowCookieSettings(true)}
+                    className="text-green-400 hover:text-green-300 underline"
+                  >
+                    {t('cookie.learnMore')}
+                  </button>
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => handleCookieChoice(false)}
+                  className="px-4 py-2 text-white/70 hover:text-white border border-white/30 hover:border-white/50 transition-colors text-sm"
+                >
+                  {t('cookie.reject')}
+                </button>
+                <button
+                  onClick={() => handleCookieChoice(true)}
+                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white transition-colors text-sm"
+                >
+                  {t('cookie.accept')}
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Cookie Settings Modal */}
+      <AnimatePresence>
+        {showCookieSettings && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+                         onClick={() => setShowCookieSettings(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-2xl font-bold text-black">
+                    {t('cookie.settings.title')}
+                  </h3>
+                  <button
+                    onClick={() => setShowCookieSettings(false)}
+                    className="text-black/60 hover:text-black"
+                  >
+                    <FaTimes className="w-6 h-6" />
+                  </button>
+                </div>
+
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-lg font-semibold text-black mb-2">
+                      {t('cookie.settings.privacy.title')}
+                    </h4>
+                    <p className="text-black/70 text-sm leading-relaxed mb-4">
+                      {t('cookie.settings.privacy.description')}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-lg font-semibold text-black mb-2">
+                      {t('cookie.settings.kvkk.title')}
+                    </h4>
+                    <p className="text-black/70 text-sm leading-relaxed mb-4">
+                      {t('cookie.settings.kvkk.description')}
+                    </p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h4 className="text-lg font-semibold text-black">
+                      {t('cookie.settings.types.title')}
+                    </h4>
+                    
+                    {/* Essential Cookies */}
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                      <div>
+                        <h5 className="font-medium text-black">
+                          {t('cookie.settings.types.essential.title')}
+                        </h5>
+                        <p className="text-black/60 text-sm">
+                          {t('cookie.settings.types.essential.description')}
+                        </p>
+                      </div>
+                      <div className="text-green-600 font-medium text-sm">
+                        {t('cookie.settings.required')}
+                      </div>
+                    </div>
+
+                    {/* Analytics Cookies */}
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                      <div>
+                        <h5 className="font-medium text-black">
+                          {t('cookie.settings.types.analytics.title')}
+                        </h5>
+                        <p className="text-black/60 text-sm">
+                          {t('cookie.settings.types.analytics.description')}
+                        </p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={cookiePreferences.analytics}
+                          onChange={(e) => setCookiePreferences(prev => ({
+                            ...prev,
+                            analytics: e.target.checked
+                          }))}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                      </label>
+                    </div>
+
+                    {/* Marketing Cookies */}
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                      <div>
+                        <h5 className="font-medium text-black">
+                          {t('cookie.settings.types.marketing.title')}
+                        </h5>
+                        <p className="text-black/60 text-sm">
+                          {t('cookie.settings.types.marketing.description')}
+                        </p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={cookiePreferences.marketing}
+                          onChange={(e) => setCookiePreferences(prev => ({
+                            ...prev,
+                            marketing: e.target.checked
+                          }))}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 pt-4">
+                    <button
+                      onClick={saveCookiePreferences}
+                      className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-6 transition-colors"
+                    >
+                      {t('cookie.settings.save')}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setCookiePreferences({ essential: true, analytics: true, marketing: true });
+                        saveCookiePreferences();
+                      }}
+                      className="flex-1 border border-green-600 text-green-600 hover:bg-green-50 py-3 px-6 transition-colors"
+                    >
+                      {t('cookie.settings.acceptAll')}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
