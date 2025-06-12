@@ -1032,12 +1032,12 @@ function App() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <motion.div
+                  <motion.div
               className="text-lg sm:text-xl font-bold tracking-wider"
               whileHover={{ scale: 1.05 }}
             >
               {t('loading.title')}
-            </motion.div>
+                  </motion.div>
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
@@ -1048,27 +1048,27 @@ function App() {
                 { key: 'usageAreas', href: '#usage-areas' },
                 { key: 'contact', href: '#contact' }
               ].map((item) => (
-                <motion.a
+                      <motion.a
                   key={item.key}
-                  href={item.href}
+                        href={item.href}
                   className="text-sm font-medium tracking-wide hover:text-white/70 transition-colors"
                   whileHover={{ y: -2 }}
                   onClick={(e) => {
                     e.preventDefault();
                     document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                >
+                      >
                   {t(`nav.${item.key}`)}
-                </motion.a>
-              ))}
-            </div>
+                      </motion.a>
+                  ))}
+                </div>
             
             <div className="flex items-center space-x-2 sm:space-x-4">
               {/* Language Switcher */}
-              <motion.button
+                      <motion.button
                 onClick={toggleLanguage}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                 className="flex items-center px-2 sm:px-3 py-1 sm:py-2 border border-white/30 text-white hover:border-white transition-all duration-300 text-xs sm:text-sm font-medium tracking-wide"
               >
                 <FaGlobe className="mr-1 sm:mr-2 w-3 h-3 sm:w-4 sm:h-4" />
@@ -1083,8 +1083,8 @@ function App() {
                 className="md:hidden p-2 text-white"
               >
                 {mobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-              </motion.button>
-            </div>
+                      </motion.button>
+                    </div>
           </div>
 
           {/* Mobile Navigation Menu */}
@@ -1128,7 +1128,7 @@ function App() {
       {/* Hero Section - Ultimate Minimalism */}
       <section className="min-h-screen flex items-center justify-center relative pt-16 sm:pt-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <motion.div
+                  <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
@@ -1161,9 +1161,9 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6 }}
           >
-            <motion.button
+                      <motion.button
               whileHover={{ scale: 1.05, backgroundColor: "#ffffff", color: "#000000" }}
-              whileTap={{ scale: 0.95 }}
+                        whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-black border-2 border-white text-white font-medium tracking-wider transition-all duration-300 group"
               onClick={() => {
                 // Smooth scroll to contact section or show contact modal
@@ -1179,11 +1179,11 @@ function App() {
                 <span className="text-sm sm:text-base">{t('hero.requestConsultation')}</span>
                 <FaArrowRight className="ml-2 w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
               </span>
-            </motion.button>
+                      </motion.button>
             
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-white border border-white/30 hover:border-white transition-all duration-300 group"
               onClick={() => {
                 // Send demo request via WhatsApp
@@ -1195,7 +1195,7 @@ function App() {
                 <FaPlay className="mr-2 w-3 h-3 sm:w-4 sm:h-4 group-hover:scale-110 transition-transform" />
                 <span className="text-sm sm:text-base">{t('hero.platformDemo')}</span>
               </span>
-            </motion.button>
+                      </motion.button>
                   </motion.div>
 
           {/* Minimal Stats */}
@@ -1217,7 +1217,7 @@ function App() {
               >
                 <div className="text-xl sm:text-2xl md:text-3xl font-light mb-1 sm:mb-2">{stat.value}</div>
                 <div className="text-xs sm:text-sm text-white/60 tracking-wide">{t(`hero.stats.${stat.key}`)}</div>
-              </motion.div>
+                </motion.div>
             ))}
           </motion.div>
         </div>
@@ -1226,7 +1226,7 @@ function App() {
       {/* About Section - Who We Are */}
       <section className="py-16 sm:py-20 lg:py-24 bg-white text-black relative" id="about">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <motion.div
+                    <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -1237,8 +1237,8 @@ function App() {
             <p className="text-base sm:text-lg md:text-xl text-black/80 leading-relaxed font-light max-w-3xl mx-auto px-2">
               {t('about.description')}
             </p>
-          </motion.div>
-        </div>
+                    </motion.div>
+                </div>
       </section>
 
       {/* Modules Section */}
@@ -2030,7 +2030,7 @@ function App() {
             <p className="text-base sm:text-lg text-white/70 max-w-4xl mx-auto font-light leading-relaxed">
               {t('vision.description')}
             </p>
-          </motion.div>
+                </motion.div>
 
           {/* Vision Goals Grid */}
           <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
@@ -2038,10 +2038,10 @@ function App() {
               title: string;
               description: string;
             }>).map((goal, index) => (
-              <motion.div
+                <motion.div
                 key={index}
                 className="relative p-6 sm:p-8 border border-white/10 hover:border-white/30 transition-all duration-500 group"
-                initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 whileHover={{ y: -5, scale: 1.02 }}
@@ -2055,7 +2055,7 @@ function App() {
                   {index === 1 && <FaGlobe className="w-8 h-8 sm:w-10 sm:h-10 text-white group-hover:text-white/80 transition-colors" />}
                   {index === 2 && <FaRocket className="w-8 h-8 sm:w-10 sm:h-10 text-white group-hover:text-white/80 transition-colors" />}
                   {index === 3 && <FaChartBar className="w-8 h-8 sm:w-10 sm:h-10 text-white group-hover:text-white/80 transition-colors" />}
-                </motion.div>
+            </motion.div>
                 
                 <h3 className="text-lg sm:text-xl font-medium mb-3 sm:mb-4 tracking-wide">{goal.title}</h3>
                 <p className="text-sm sm:text-base text-white/70 leading-relaxed font-light">{goal.description}</p>
@@ -2064,8 +2064,8 @@ function App() {
                 <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-500"></div>
               </motion.div>
             ))}
-          </div>
-        </div>
+                    </div>
+                    </div>
       </section>
 
       {/* Contact Section */}
@@ -2219,7 +2219,7 @@ function App() {
         </div>
       </section>
 
-            {/* Footer - Ultra Minimal */}
+      {/* Footer - Ultra Minimal */}
       <footer className="py-12 border-t border-white/10">
         <div className="max-w-6xl mx-auto px-6">
           {/* Main Footer Content */}
@@ -2252,7 +2252,7 @@ function App() {
               </div>
             </div>
           </div>
-
+          
           {/* Bottom Bar */}
           <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center">
             <p className="text-white/50 text-xs font-light mb-4 md:mb-0">
@@ -2260,7 +2260,7 @@ function App() {
             </p>
             
             {/* Privacy Links */}
-            <div className="flex space-x-4 text-xs">
+            <div className="flex flex-wrap justify-center md:justify-end gap-4 text-xs">
               <button
                 onClick={() => setShowCookieSettings(true)}
                 className="text-white/50 hover:text-white transition-colors underline"
@@ -2271,7 +2271,19 @@ function App() {
                 onClick={() => setShowCookieSettings(true)}
                 className="text-white/50 hover:text-white transition-colors underline"
               >
+                Hizmet Şartları
+              </button>
+              <button
+                onClick={() => setShowCookieSettings(true)}
+                className="text-white/50 hover:text-white transition-colors underline"
+              >
                 Çerez Ayarları
+              </button>
+              <button
+                onClick={() => setShowCookieSettings(true)}
+                className="text-white/50 hover:text-white transition-colors underline"
+              >
+                KVKK
               </button>
             </div>
           </div>
@@ -2281,7 +2293,7 @@ function App() {
             {/* Cookie Consent Banner */}
       <AnimatePresence>
         {showCookieBanner && (
-          <motion.div
+                <motion.div
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
@@ -2444,7 +2456,7 @@ function App() {
                       {t('cookie.settings.save')}
                     </button>
                     <button
-                      onClick={() => {
+                  onClick={() => {
                         setCookiePreferences({ essential: true, analytics: true, marketing: true });
                         saveCookiePreferences();
                       }}
@@ -2452,9 +2464,9 @@ function App() {
                     >
                       {t('cookie.settings.acceptAll')}
                     </button>
-                  </div>
-                </div>
-              </div>
+            </div>
+          </div>
+        </div>
             </motion.div>
           </motion.div>
         )}
