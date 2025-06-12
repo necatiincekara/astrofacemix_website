@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaBrain, FaRocket, FaLock, FaChartBar, FaStar, FaUsers, FaArrowRight, FaPlay, FaGlobe, FaDesktop, FaCamera, FaLightbulb, FaBolt, FaShieldAlt, FaBars, FaTimes } from 'react-icons/fa';
+import { FaBrain, FaRocket, FaLock, FaChartBar, FaStar, FaUsers, FaArrowRight, FaPlay, FaGlobe, FaDesktop, FaCamera, FaLightbulb, FaBolt, FaShieldAlt, FaBars, FaTimes, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import i18n from 'i18next';
@@ -2227,9 +2227,29 @@ function App() {
             {/* Brand */}
             <div className="text-center md:text-left mb-6 md:mb-0">
               <h3 className="text-xl font-bold tracking-wider mb-2">{t('footer.title')}</h3>
-              <p className="text-white/60 text-sm font-light max-w-md">
+              <p className="text-white/60 text-sm font-light max-w-md mb-4">
                 {t('footer.description')}
               </p>
+              
+              {/* Social Media Icons */}
+              <div className="flex justify-center md:justify-start space-x-4">
+                <a
+                  href="https://instagram.com/astrofacemix"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group"
+                >
+                  <FaInstagram className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+                </a>
+                <a
+                  href="https://wa.me/905392260505"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors group"
+                >
+                  <FaWhatsapp className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+                </a>
+              </div>
             </div>
           </div>
 

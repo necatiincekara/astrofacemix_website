@@ -55,56 +55,84 @@ code {
   background-color: var(--accent-dark);
 }
 
-/* Custom scrollbar - Force override all default styles */
+/* Custom scrollbar - Ultra strong override for all browsers */
 * {
-  scrollbar-width: thin;
+  scrollbar-width: thin !important;
   scrollbar-color: #4a5568 #000000 !important;
 }
 
 *::-webkit-scrollbar {
   width: 8px !important;
   height: 8px !important;
+  background: #000000 !important;
 }
 
 *::-webkit-scrollbar-track {
   background: #000000 !important;
+  background-color: #000000 !important;
   border-radius: 0 !important;
+  border: none !important;
 }
 
 *::-webkit-scrollbar-thumb {
   background: #4a5568 !important;
+  background-color: #4a5568 !important;
   border-radius: 4px !important;
   border: none !important;
+  box-shadow: none !important;
 }
 
 *::-webkit-scrollbar-thumb:hover {
   background: #718096 !important;
+  background-color: #718096 !important;
 }
 
 *::-webkit-scrollbar-corner {
   background: #000000 !important;
+  background-color: #000000 !important;
 }
 
-/* Additional specific targeting for body and html */
+/* Ultra specific targeting */
+html, body, div, main, section, article, aside, nav, header, footer {
+  scrollbar-width: thin !important;
+  scrollbar-color: #4a5568 #000000 !important;
+}
+
 html::-webkit-scrollbar,
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+div::-webkit-scrollbar,
+main::-webkit-scrollbar,
+section::-webkit-scrollbar {
   width: 8px !important;
-}
-
-html::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track {
   background: #000000 !important;
 }
 
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+div::-webkit-scrollbar-track,
+main::-webkit-scrollbar-track,
+section::-webkit-scrollbar-track {
+  background: #000000 !important;
+  background-color: #000000 !important;
+}
+
 html::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb,
+div::-webkit-scrollbar-thumb,
+main::-webkit-scrollbar-thumb,
+section::-webkit-scrollbar-thumb {
   background: #4a5568 !important;
+  background-color: #4a5568 !important;
   border-radius: 4px !important;
 }
 
 html::-webkit-scrollbar-thumb:hover,
-body::-webkit-scrollbar-thumb:hover {
+body::-webkit-scrollbar-thumb:hover,
+div::-webkit-scrollbar-thumb:hover,
+main::-webkit-scrollbar-thumb:hover,
+section::-webkit-scrollbar-thumb:hover {
   background: #718096 !important;
+  background-color: #718096 !important;
 }
 
 /* Animations */
