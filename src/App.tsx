@@ -52,23 +52,23 @@ const resources = {
         title: "CORPORATE MODULES",
         dnatest: {
           title: "DNA TEST",
-          description: "Advanced genetic analysis platform for personalized health insights and research applications."
+          description: "Corporate character matching module that analyzes the compatibility between company culture and employee profiles."
         },
         worklife: {
           title: "WORKLIFE",
-          description: "AI-driven workforce optimization and productivity enhancement for maximum operational efficiency."
+          description: "Analyzes elements like style, communication language, and color harmony to strengthen the brand's creative identity."
         },
         workstill: {
           title: "WORKSTILL",
-          description: "Advanced automation platform for streamlined business processes and operational excellence."
+          description: "Offers personalized work-life recommendations based on employees' style, posture, and energies."
         },
         companystars: {
           title: "COMPANY STARS",
-          description: "Comprehensive employee performance analysis and talent optimization platform."
+          description: "Evaluates and strengthens team potential and harmony through gamified analyses."
         },
         astrowork: {
           title: "ASTROWORK",
-          description: "Astrological insights integrated with workplace dynamics for enhanced team collaboration and productivity."
+          description: "Measures energy compatibility between employees through astrological analyses and optimizes team dynamics."
         }
       },
       howItWorks: {
@@ -419,23 +419,23 @@ const resources = {
         title: "KURUMSAL MODÜLLER",
         dnatest: {
           title: "DNA TEST",
-          description: "Kişiselleştirilmiş sağlık içgörüleri ve araştırma uygulamaları için gelişmiş genetik analiz platformu."
+          description: "Şirket kültürü ile çalışan profilleri arasındaki uyumu analiz eden kurumsal karakter eşleşme modülüdür."
         },
         worklife: {
           title: "WORKLIFE",
-          description: "Maksimum operasyonel verimlilik için yapay zeka destekli işgücü optimizasyonu ve verimlilik artırımı."
+          description: "Markanın yaratıcı kimliğini güçlendirmek için stil, iletişim dili ve renk uyumu gibi unsurları analiz eder."
         },
         workstill: {
           title: "WORKSTILL",
-          description: "Akıcı iş süreçleri ve operasyonel mükemmellik için gelişmiş otomasyon platformu."
+          description: "Çalışanların stil, duruş ve enerjilerine göre kişiselleştirilmiş iş-yaşam önerileri sunar."
         },
         companystars: {
           title: "COMPANY STARS",
-          description: "Kapsamlı çalışan performans analizi ve yetenek optimizasyon platformu."
+          description: "Takım içi potansiyeli ve uyumu oyunlaştırılmış analizlerle değerlendirir ve güçlendirir."
         },
         astrowork: {
           title: "ASTROWORK",
-          description: "Gelişmiş takım işbirliği ve verimlilik için astrolojik içgörülerin işyeri dinamikleriyle entegrasyonu."
+          description: "Astrolojik analizlerle çalışanlar arasındaki enerji uyumunu ölçer ve ekip dinamiklerini optimize eder."
         }
       },
       howItWorks: {
