@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaBrain, FaRocket, FaLock, FaChartBar, FaStar, FaUsers, FaArrowRight, FaPlay, FaGlobe, FaDesktop, FaCamera, FaLightbulb, FaBolt, FaShieldAlt, FaInstagram, FaLinkedin, FaTwitter, FaBars, FaTimes } from 'react-icons/fa';
+import { FaBrain, FaRocket, FaLock, FaChartBar, FaStar, FaUsers, FaArrowRight, FaPlay, FaGlobe, FaDesktop, FaCamera, FaLightbulb, FaBolt, FaShieldAlt, FaBars, FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import i18n from 'i18next';
@@ -2219,111 +2219,46 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-black text-white py-16 relative">
+            {/* Footer - Ultra Minimal */}
+      <footer className="py-12 border-t border-white/10">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
-            {/* Company Info */}
-            <div className="md:col-span-2">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-              >
-                <h3 className="text-2xl font-bold mb-4 tracking-wider">{t('footer.title')}</h3>
-                <p className="text-white/70 mb-6 leading-relaxed">
-                  {t('footer.description')}
-                </p>
-                
-                {/* Social Links */}
-                <div className="flex space-x-4">
-                  {[FaLinkedin, FaTwitter, FaInstagram].map((Icon, index) => (
-                    <motion.a
-                      key={index}
-                      href="#"
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
-                    >
-                      <Icon className="w-5 h-5" />
-                    </motion.a>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1 }}
-              >
-                <h4 className="text-lg font-medium mb-4">{t('footer.modules.title')}</h4>
-                <ul className="space-y-2">
-                  {(t('footer.modules.items', { returnObjects: true }) as string[]).map((item, index) => (
-                    <li key={index}>
-                      <a href="#" className="text-white/70 hover:text-white transition-colors">
-                        {item}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
-
-            {/* Services */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <h4 className="text-lg font-medium mb-4">{t('footer.contact.title')}</h4>
-                <div className="space-y-3">
-                  <p className="text-white/70">
-                    <span className="font-medium">{t('footer.contact.phone')}:</span><br />
-                    {t('footer.contact.phone')}
-                  </p>
-                  <p className="text-white/70">
-                    <span className="font-medium">{t('footer.contact.email')}:</span><br />
-                    {t('footer.contact.email')}
-                  </p>
-                </div>
-              </motion.div>
+          {/* Main Footer Content */}
+          <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+            {/* Brand */}
+            <div className="text-center md:text-left mb-6 md:mb-0">
+              <h3 className="text-xl font-bold tracking-wider mb-2">{t('footer.title')}</h3>
+              <p className="text-white/60 text-sm font-light max-w-md">
+                {t('footer.description')}
+              </p>
             </div>
           </div>
 
           {/* Bottom Bar */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center"
-          >
-            <p className="text-white/60 text-sm mb-4 md:mb-0">
+          <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-white/50 text-xs font-light mb-4 md:mb-0">
               {t('footer.copyright')}
             </p>
             
-            <div className="flex space-x-6 text-sm">
-              {(t('footer.links', { returnObjects: true }) as string[]).map((link, index) => (
-                <a 
-                  key={index} 
-                  href="#" 
-                  className="text-white/60 hover:text-white transition-colors"
-                  onClick={(e) => {
-                    e.preventDefault();
-                                         if (index === 0) setShowCookieSettings(true); // Privacy Policy
-                  }}
-                >
-                  {link}
-                </a>
-              ))}
+            {/* Privacy Links */}
+            <div className="flex space-x-4 text-xs">
+              <button
+                onClick={() => setShowCookieSettings(true)}
+                className="text-white/50 hover:text-white transition-colors underline"
+              >
+                Gizlilik Politikası
+              </button>
+              <button
+                onClick={() => setShowCookieSettings(true)}
+                className="text-white/50 hover:text-white transition-colors underline"
+              >
+                Çerez Ayarları
+              </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </footer>
 
-      {/* Cookie Consent Banner */}
+            {/* Cookie Consent Banner */}
       <AnimatePresence>
         {showCookieBanner && (
           <motion.div
@@ -2337,8 +2272,8 @@ function App() {
                 <p>
                   {t('cookie.message')} {' '}
                   <button 
-                                         onClick={() => setShowCookieSettings(true)}
-                    className="text-green-400 hover:text-green-300 underline"
+                    onClick={() => setShowCookieSettings(true)}
+                    className="text-white underline hover:text-white/80 transition-colors"
                   >
                     {t('cookie.learnMore')}
                   </button>
@@ -2353,7 +2288,7 @@ function App() {
                 </button>
                 <button
                   onClick={() => handleCookieChoice(true)}
-                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white transition-colors text-sm"
+                  className="px-4 py-2 bg-white text-black hover:bg-white/90 transition-colors text-sm font-medium"
                 >
                   {t('cookie.accept')}
                 </button>
@@ -2377,17 +2312,17 @@ function App() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+              className="bg-black border border-white/20 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-2xl font-bold text-black">
+                  <h3 className="text-2xl font-bold text-white">
                     {t('cookie.settings.title')}
                   </h3>
                   <button
                     onClick={() => setShowCookieSettings(false)}
-                    className="text-black/60 hover:text-black"
+                    className="text-white/60 hover:text-white"
                   >
                     <FaTimes className="w-6 h-6" />
                   </button>
@@ -2395,50 +2330,50 @@ function App() {
 
                 <div className="space-y-6">
                   <div>
-                    <h4 className="text-lg font-semibold text-black mb-2">
+                    <h4 className="text-lg font-semibold text-white mb-2">
                       {t('cookie.settings.privacy.title')}
                     </h4>
-                    <p className="text-black/70 text-sm leading-relaxed mb-4">
+                    <p className="text-white/70 text-sm leading-relaxed mb-4">
                       {t('cookie.settings.privacy.description')}
                     </p>
                   </div>
 
                   <div>
-                    <h4 className="text-lg font-semibold text-black mb-2">
+                    <h4 className="text-lg font-semibold text-white mb-2">
                       {t('cookie.settings.kvkk.title')}
                     </h4>
-                    <p className="text-black/70 text-sm leading-relaxed mb-4">
+                    <p className="text-white/70 text-sm leading-relaxed mb-4">
                       {t('cookie.settings.kvkk.description')}
                     </p>
                   </div>
 
                   <div className="space-y-4">
-                    <h4 className="text-lg font-semibold text-black">
+                    <h4 className="text-lg font-semibold text-white">
                       {t('cookie.settings.types.title')}
                     </h4>
                     
                     {/* Essential Cookies */}
-                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                    <div className="flex items-center justify-between p-3 bg-white/5 border border-white/10 rounded">
                       <div>
-                        <h5 className="font-medium text-black">
+                        <h5 className="font-medium text-white">
                           {t('cookie.settings.types.essential.title')}
                         </h5>
-                        <p className="text-black/60 text-sm">
+                        <p className="text-white/60 text-sm">
                           {t('cookie.settings.types.essential.description')}
                         </p>
                       </div>
-                      <div className="text-green-600 font-medium text-sm">
+                      <div className="text-white/70 font-medium text-sm">
                         {t('cookie.settings.required')}
                       </div>
                     </div>
 
                     {/* Analytics Cookies */}
-                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                    <div className="flex items-center justify-between p-3 bg-white/5 border border-white/10 rounded">
                       <div>
-                        <h5 className="font-medium text-black">
+                        <h5 className="font-medium text-white">
                           {t('cookie.settings.types.analytics.title')}
                         </h5>
-                        <p className="text-black/60 text-sm">
+                        <p className="text-white/60 text-sm">
                           {t('cookie.settings.types.analytics.description')}
                         </p>
                       </div>
@@ -2452,17 +2387,17 @@ function App() {
                           }))}
                           className="sr-only peer"
                         />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                        <div className="w-11 h-6 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-white"></div>
                       </label>
                     </div>
 
                     {/* Marketing Cookies */}
-                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                    <div className="flex items-center justify-between p-3 bg-white/5 border border-white/10 rounded">
                       <div>
-                        <h5 className="font-medium text-black">
+                        <h5 className="font-medium text-white">
                           {t('cookie.settings.types.marketing.title')}
                         </h5>
-                        <p className="text-black/60 text-sm">
+                        <p className="text-white/60 text-sm">
                           {t('cookie.settings.types.marketing.description')}
                         </p>
                       </div>
@@ -2476,7 +2411,7 @@ function App() {
                           }))}
                           className="sr-only peer"
                         />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                        <div className="w-11 h-6 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-white"></div>
                       </label>
                     </div>
                   </div>
@@ -2484,7 +2419,7 @@ function App() {
                   <div className="flex gap-3 pt-4">
                     <button
                       onClick={saveCookiePreferences}
-                      className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-6 transition-colors"
+                      className="flex-1 bg-white text-black hover:bg-white/90 py-3 px-6 transition-colors font-medium"
                     >
                       {t('cookie.settings.save')}
                     </button>
@@ -2493,7 +2428,7 @@ function App() {
                         setCookiePreferences({ essential: true, analytics: true, marketing: true });
                         saveCookiePreferences();
                       }}
-                      className="flex-1 border border-green-600 text-green-600 hover:bg-green-50 py-3 px-6 transition-colors"
+                      className="flex-1 border border-white/30 text-white hover:bg-white/10 py-3 px-6 transition-colors"
                     >
                       {t('cookie.settings.acceptAll')}
                     </button>
