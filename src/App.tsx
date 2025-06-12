@@ -145,21 +145,39 @@ const resources = {
             shareText: "Share Your Cosmic Result"
           },
           {
-            type: "Lifestyle Recommendation",
-            title: "Your Perfect Vacation",
-            recommendation: "Santorini Wellness Retreat",
-            category: "TRAVEL - LUXURY",
-            description: "Mediterranean luxury combined with wellness and relaxation.",
+            type: "Fitness Recommendation",
+            title: "Your Ideal Workout Plan",
+            recommendation: "HIIT & Strength Training",
+            category: "FITNESS - DYNAMIC",
+            description: "High-intensity training combined with strength building for optimal results.",
             analysis: {
-              lifestyle: "Sophisticated",
-              interests: "Wellness, Culture, Luxury",
-              budget: "Premium",
-              travelStyle: "Relaxation focused"
+              lifestyle: "Active",
+              interests: "Fitness, Challenge, Results",
+              commitment: "High",
+              fitnessStyle: "Goal-oriented"
             },
-            whyTitle: "Perfect Match for You",
-            whyDescription: "Based on your sophisticated taste and preference for quality experiences, Santorini offers the perfect blend of luxury, culture, and wellness that aligns with your personality.",
-            features: ["5-Star Resort", "Spa Treatments", "Cultural Tours", "Fine Dining", "Sunset Views"],
-            shareText: "Share Your Travel Recommendation"
+            whyTitle: "Perfect Fitness Match",
+            whyDescription: "Based on your determined personality and goal-oriented approach, this dynamic training combination will challenge you while delivering visible results that match your ambitious nature.",
+            features: ["HIIT Cardio Sessions", "Strength Training", "Flexibility Work", "Nutrition Guidance", "Progress Tracking"],
+            shareText: "Share Your Fitness Plan"
+          },
+          {
+            type: "Business Strategy",
+            title: "Your Personalized Business Solution",
+            recommendation: "Digital Transformation Package",
+            category: "ENTERPRISE - INNOVATION",
+            description: "Comprehensive AI-powered business optimization tailored to your company's unique needs.",
+            analysis: {
+              industry: "Technology",
+              companySize: "Mid-scale",
+              goals: "Growth, Efficiency, Innovation",
+              challenges: "Digital Integration, Process Optimization",
+              vision: "Market Leadership"
+            },
+            whyTitle: "Why This Solution for Your Business?",
+            whyDescription: "Our AI analysis reveals your company's potential for digital leadership. This comprehensive package combines our core modules - AstroMix for team dynamics, FaceMix for customer insights, WorkLife for productivity optimization, and DNA Test for cultural alignment - creating a unified ecosystem that drives sustainable growth.",
+            features: ["AI-Powered Analytics", "Team Optimization", "Customer Experience Design", "Process Automation", "Performance Tracking", "Custom Integration"],
+            shareText: "Share Your Business Solution"
           }
         ]
       },
@@ -574,6 +592,24 @@ const resources = {
             whyDescription: "Sofistike zevkiniz ve kaliteli deneyim tercihinize dayanarak, Santorini kişiliğinizle uyumlu mükemmel lüks, kültür ve wellness karışımı sunuyor.",
             features: ["5 Yıldızlı Resort", "Spa Tedavileri", "Kültür Turları", "Fine Dining", "Gün Batımı Manzaraları"],
             shareText: "Seyahat Önerinizi Paylaşın"
+          },
+          {
+            type: "İş Stratejisi",
+            title: "Kişiselleştirilmiş İş Çözümünüz",
+            recommendation: "Dijital Dönüşüm Paketi",
+            category: "KURUMSAL - İNOVASYON",
+            description: "Şirketinizin benzersiz ihtiyaçlarına özel kapsamlı AI destekli iş optimizasyonu.",
+            analysis: {
+              industry: "Teknoloji",
+              companySize: "Orta ölçek",
+              goals: "Büyüme, Verimlilik, İnovasyon",
+              challenges: "Dijital Entegrasyon, Süreç Optimizasyonu",
+              vision: "Pazar Liderliği"
+            },
+            whyTitle: "İşiniz İçin Neden Bu Çözüm?",
+            whyDescription: "AI analizimiz şirketinizin dijital liderlik potansiyelini ortaya koyuyor. Bu kapsamlı paket, temel modüllerimizi - ekip dinamikleri için AstroMix, müşteri içgörüleri için FaceMix, verimlilik optimizasyonu için WorkLife ve kültürel uyum için DNA Test - birleştirerek sürdürülebilir büyümeyi destekleyen birleşik bir ekosistem yaratır.",
+            features: ["AI Destekli Analitik", "Takım Optimizasyonu", "Müşteri Deneyimi Tasarımı", "Süreç Otomasyonu", "Performans Takibi", "Özel Entegrasyon"],
+            shareText: "İş Çözümünüzü Paylaşın"
           }
         ]
       },
