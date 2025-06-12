@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaBrain, FaRocket, FaLock, FaChartBar, FaStar, FaUsers, FaArrowRight, FaPlay, FaQuoteLeft, FaGlobe, FaDesktop, FaCamera, FaLightbulb, FaBolt, FaShieldAlt, FaInstagram, FaLinkedin, FaTwitter, FaBars, FaTimes } from 'react-icons/fa';
+import { FaBrain, FaRocket, FaLock, FaChartBar, FaStar, FaUsers, FaArrowRight, FaPlay, FaGlobe, FaDesktop, FaCamera, FaLightbulb, FaBolt, FaShieldAlt, FaInstagram, FaLinkedin, FaTwitter, FaBars, FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import i18n from 'i18next';
@@ -313,27 +313,26 @@ const resources = {
           }
         }
       },
-      testimonials: {
-        title: "CLIENT TESTIMONIALS",
-        description: "Trusted by leading enterprises worldwide",
-        items: [
+      vision: {
+        title: "OUR VISION",
+        subtitle: "Shaping the future of personalized experiences",
+        description: "We envision a world where every interaction is meaningful, every experience is unique, and technology serves humanity's desire for authentic connections.",
+        goals: [
           {
-            text: "This AI platform transformed our enterprise operations completely. Exceptional results.",
-            author: "Michael Chen",
-            position: "CEO, Fortune 500 Company",
-            company: "TechCorp Industries"
+            title: "Revolutionary Technology",
+            description: "Pioneering the next generation of AI-powered personalization platforms"
           },
           {
-            text: "The most sophisticated AI solution we've ever implemented. Incredible ROI.",
-            author: "Sarah Johnson", 
-            position: "CTO, Global Enterprises",
-            company: "DataTech Solutions"
+            title: "Global Impact",
+            description: "Expanding to international markets and creating memorable experiences worldwide"
           },
           {
-            text: "Revolutionary technology that exceeds all expectations. Outstanding performance.",
-            author: "David Rodriguez",
-            position: "Director of Innovation", 
-            company: "FutureVision Corp"
+            title: "Innovation Leadership",
+            description: "Setting new standards in the intersection of technology, creativity, and human connection"
+          },
+          {
+            title: "Sustainable Growth",
+            description: "Building long-term partnerships while maintaining our commitment to excellence and innovation"
           }
         ]
       },
@@ -681,27 +680,26 @@ const resources = {
           }
         }
       },
-      testimonials: {
-        title: "MÜŞTERİ GÖRÜŞLERİ",
-        description: "Dünya çapında önde gelen kurumlar tarafından güvenilir",
-        items: [
+      vision: {
+        title: "VİZYONUMUZ",
+        subtitle: "Kişiselleştirilmiş deneyimlerin geleceğini şekillendiriyoruz",
+        description: "Her etkileşimin anlamlı, her deneyimin eşsiz olduğu ve teknolojinin insanlığın otantik bağlantı isteğine hizmet ettiği bir dünya hayal ediyoruz.",
+        goals: [
           {
-            text: "Bu yapay zeka platformu kurumsal operasyonlarımızı tamamen dönüştürdü. Olağanüstü sonuçlar.",
-            author: "Mehmet Çelik",
-            position: "Genel Müdür, Fortune 500 Şirketi",
-            company: "TeknoKorp Endüstrileri"
+            title: "Devrimci Teknoloji",
+            description: "Yapay zeka destekli kişiselleştirme platformlarının yeni nesline öncülük etmek"
           },
           {
-            text: "Şimdiye kadar uyguladığımız en gelişmiş yapay zeka çözümü. İnanılmaz yatırım getirisi.",
-            author: "Ayşe Yılmaz",
-            position: "CTO, Global Kurumsal",
-            company: "VeriTek Çözümleri"
+            title: "Küresel Etki",
+            description: "Uluslararası pazarlara genişleyerek dünya çapında unutulmaz deneyimler yaratmak"
           },
           {
-            text: "Tüm beklentileri aşan devrimci teknoloji. Üstün performans.",
-            author: "Ali Demir",
-            position: "İnovasyon Direktörü",
-            company: "GelecekVizyon Corp"
+            title: "İnovasyon Liderliği",
+            description: "Teknoloji, yaratıcılık ve insan bağlantısı kesişiminde yeni standartlar belirlemek"
+          },
+          {
+            title: "Sürdürülebilir Büyüme",
+            description: "Mükemmellik ve inovasyon taahhüdümüzü koruyarak uzun vadeli ortaklıklar kurmak"
           }
         ]
       },
@@ -774,7 +772,7 @@ function App() {
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [particles, setParticles] = useState<FloatingParticle[]>([]);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const currentLanguage = i18n.language;
@@ -803,20 +801,7 @@ function App() {
     setParticles(newParticles);
   }, []);
 
-  // Get testimonials from translation
-  const testimonials = t('testimonials.items', { returnObjects: true }) as Array<{
-    text: string;
-    author: string;
-    position: string;
-    company: string;
-  }>;
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval as NodeJS.Timeout);
-  }, [testimonials.length]);
 
 
 
@@ -1887,58 +1872,60 @@ function App() {
         </div>
       </section>
 
-      {/* Client Testimonials */}
-      <section className="py-24 relative">
-        <div className="max-w-4xl mx-auto px-6 text-center">
+      {/* Our Vision */}
+      <section className="py-16 sm:py-20 lg:py-24 relative">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <motion.div
-            className="mb-16"
+            className="text-center mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl md:text-5xl font-extralight mb-6 tracking-wider">
-              {t('testimonials.title')}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extralight mb-4 sm:mb-6 tracking-wider">
+              {t('vision.title')}
             </h2>
-            <p className="text-lg text-white/70 font-light">
-              {t('testimonials.description')}
+            <p className="text-lg sm:text-xl text-white/80 max-w-3xl mx-auto font-light mb-4">
+              {t('vision.subtitle')}
             </p>
-                </motion.div>
+            <p className="text-base sm:text-lg text-white/70 max-w-4xl mx-auto font-light leading-relaxed">
+              {t('vision.description')}
+            </p>
+          </motion.div>
 
-          <AnimatePresence mode="wait">
-                <motion.div
-              key={currentTestimonial}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.8 }}
-              className="mb-12"
-            >
-              <FaQuoteLeft className="w-8 h-8 mx-auto mb-8 text-white/40" />
-              <blockquote className="text-xl md:text-2xl font-light mb-8 leading-relaxed">
-                "{testimonials[currentTestimonial]?.text}"
-              </blockquote>
-              <div className="text-center">
-                <div className="font-medium text-lg mb-1">{testimonials[currentTestimonial]?.author}</div>
-                <div className="text-white/70 text-sm mb-1 font-light">{testimonials[currentTestimonial]?.position}</div>
-                <div className="text-white/60 text-sm font-light">{testimonials[currentTestimonial]?.company}</div>
-                    </div>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Testimonial Indicators */}
-          <div className="flex justify-center space-x-2">
-            {testimonials.map((_, index) => (
-              <button
+          {/* Vision Goals Grid */}
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {(t('vision.goals', { returnObjects: true }) as Array<{
+              title: string;
+              description: string;
+            }>).map((goal, index) => (
+              <motion.div
                 key={index}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentTestimonial ? 'bg-white' : 'bg-white/30'
-                }`}
-                onClick={() => setCurrentTestimonial(index)}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
+                className="relative p-6 sm:p-8 border border-white/10 hover:border-white/30 transition-all duration-500 group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                whileHover={{ y: -5, scale: 1.02 }}
+              >
+                <motion.div
+                  className="mb-4 sm:mb-6"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  {index === 0 && <FaLightbulb className="w-8 h-8 sm:w-10 sm:h-10 text-white group-hover:text-white/80 transition-colors" />}
+                  {index === 1 && <FaGlobe className="w-8 h-8 sm:w-10 sm:h-10 text-white group-hover:text-white/80 transition-colors" />}
+                  {index === 2 && <FaRocket className="w-8 h-8 sm:w-10 sm:h-10 text-white group-hover:text-white/80 transition-colors" />}
+                  {index === 3 && <FaChartBar className="w-8 h-8 sm:w-10 sm:h-10 text-white group-hover:text-white/80 transition-colors" />}
+                </motion.div>
+                
+                <h3 className="text-lg sm:text-xl font-medium mb-3 sm:mb-4 tracking-wide">{goal.title}</h3>
+                <p className="text-sm sm:text-base text-white/70 leading-relaxed font-light">{goal.description}</p>
+                
+                {/* Decorative line */}
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-500"></div>
+              </motion.div>
             ))}
-                    </div>
-                    </div>
+          </div>
+        </div>
       </section>
 
       {/* Contact Section */}
