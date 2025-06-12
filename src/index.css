@@ -56,7 +56,7 @@ code {
 /* Custom scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #475569 #1e293b;
+  scrollbar-color: var(--accent) var(--background);
 }
 
 ::-webkit-scrollbar {
@@ -64,16 +64,16 @@ code {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: var(--accent);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: var(--accent-dark);
 }
 
 /* Animations */
